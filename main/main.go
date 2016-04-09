@@ -10,7 +10,8 @@ func main() {
 		w.Header().Add("Content Type", "text/html")
 		tmpl, err := template.New("New").Parse(doc)
 		if err == nil {
-			tmpl.Execute(w, req.URL.Path)
+			context := Context{"Kalpesh", "Satasiya"}
+			tmpl.Execute(w, context)
 		}
 	})
 
@@ -24,8 +25,13 @@ const doc = `
 <title> Static Template </title>
 </head>
 <body>
-<h1>Hello {{.}}</h1> <br />
+<h1>Hello {{.Name}}, {{.SurName}}</h1> <br />
 This is static template demo page.
 </body>
 </html>
 `
+
+type Context struct {
+	Name string
+	SurName string
+}
